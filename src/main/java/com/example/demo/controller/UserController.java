@@ -61,5 +61,19 @@ public class UserController {
         return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "退出成功");
     }
 
+    @RequestMapping("/forget")
+    @ResponseBody
+    public CommonServerResponse forget(String username,String answer,String newPassword){
+        if(answer != userService.forget(username)){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "忘记密码问题答案错误，请重新输入回答");
+        }else {
+            int num = userService.updatePassword(username, newPassword);
+            if(num == 0){
+                return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "更新密码错误");
+            }else{
+                return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "更新密码成功");
+            }
+        }
+    }
 
 }

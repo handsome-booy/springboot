@@ -1,10 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -15,5 +12,9 @@ public interface UserMapper {
     int register(@Param("username")String username,@Param("password")String password,@Param("question")String question,
                  @Param("answer")String answer);
 
+    @Select("select answer from user where username=#{username}")
+    String forget(String username);
 
+    @Update("update user set password = #{newPassword} where username = #{username}")
+    int updatePassword(@Param("username")String username,@Param("newPassword")String newPassword);
 }

@@ -21,4 +21,14 @@ public class UserServiceImpl implements UserService {
     public int register(String username,String password,String question,String answer) {
         return userMapper.register(username,password,question,answer);
     }
+
+    @Override
+    public String forget(String username) {
+        return userMapper.forget(username);
+    }
+
+    @Override
+    public int updatePassword(String username, String newPassword) {
+        return userMapper.updatePassword(username,newPassword);
+    }
 }
