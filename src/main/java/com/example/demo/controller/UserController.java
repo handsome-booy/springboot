@@ -3,14 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.common.CommonResponse;
 import com.example.demo.common.CommonServerResponse;
 import com.example.demo.common.Const;
-import com.example.demo.dao.UserMapper;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
@@ -64,7 +62,7 @@ public class UserController {
     @RequestMapping("/forget")
     @ResponseBody
     public CommonServerResponse forget(String username,String answer,String newPassword){
-        if(answer != userService.forget(username)){
+        if(userService.forget(username).equals(answer)){
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "忘记密码问题答案错误，请重新输入回答");
         }else {
             int num = userService.updatePassword(username, newPassword);

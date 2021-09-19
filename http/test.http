@@ -1,0 +1,4 @@
+POST http://localhost:8080/user/login
+
+username=jeef
+password=xxj123456789
