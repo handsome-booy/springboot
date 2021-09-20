@@ -35,6 +35,10 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public CommonServerResponse register(User user){
+        User user1 = userService.checkedUser(user.getUsername());
+        if(user1 != null){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名已经存在");
+        }
         int num = userService.register(user);
         if(num == 0){
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "注册失败");

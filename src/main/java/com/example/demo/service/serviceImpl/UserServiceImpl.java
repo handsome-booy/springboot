@@ -21,9 +21,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int register(User user) {
-        String pass = MD5Util.formPassToDBPass(user.getPassword(),"salt");
+        String pass = MD5Util.inputPassToDBPass(user.getPassword(),"salt");
         user.setPassword(pass);
         return userMapper.register(user);
+    }
+
+    @Override
+    public User checkedUser(String username) {
+        return userMapper.checkedUser(username);
     }
 
     @Override
