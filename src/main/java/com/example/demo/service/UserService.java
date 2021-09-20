@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.pojo.User;
-import org.apache.ibatis.annotations.Param;
 
+import com.example.demo.pojo.User;
 
 public interface UserService {
-    User login(String username,String password);
+    User login(String username, String password);
 
-    int register(String username,String password,String question,String answer);
+    int register(User user);
 
     String forget(String username);
 

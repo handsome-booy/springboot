@@ -5,6 +5,7 @@ import com.example.demo.common.CommonServerResponse;
 import com.example.demo.common.Const;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
+import com.example.demo.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/user/")
 public class UserController {
 
-    @Autowired
+   @Autowired
     UserService userService;
 
     @RequestMapping("/login")
@@ -33,8 +34,8 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public CommonServerResponse register(String username, String password,String question,String answer){
-        int num = userService.register(username,password,question,answer);
+    public CommonServerResponse register(User user){
+        int num = userService.register(user);
         if(num == 0){
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "注册失败");
         }else{
@@ -73,5 +74,7 @@ public class UserController {
             }
         }
     }
+
+
 
 }
