@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.pojo.Product;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
