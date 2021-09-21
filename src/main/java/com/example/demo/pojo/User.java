@@ -9,4 +9,5 @@ public class User {
     String password;
     String question;
     String answer;
+    int manager;
 }

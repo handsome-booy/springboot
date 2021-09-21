@@ -27,10 +27,15 @@ public class UserController {
         if(user == null){
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名或者密码错误");
         }else{
-            session.setAttribute(Const.USER,user);
+            if(user.getManager() == 0) {
+                session.setAttribute(Const.USER, user);
+            }else{
+                session.setAttribute(Const.MANAGER,user);
+            }
             return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "登录成功");
         }
     }
+
 
     @RequestMapping("/register")
     @ResponseBody
@@ -44,6 +49,22 @@ public class UserController {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "注册失败");
         }else{
             return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "注册成功");
+        }
+    }
+
+    @RequestMapping("/manager/register")
+    @ResponseBody
+    public CommonServerResponse managerRegister(User user){
+        User user1 = userService.checkedUser(user.getUsername());
+        if(user1 != null){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名已经存在");
+        }
+        user.setManager(1);
+        int num = userService.register(user);
+        if(num == 0){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "管理员注册失败");
+        }else{
+            return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "管理员注册成功");
         }
     }
 
