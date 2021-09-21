@@ -19,5 +19,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int deleteProduct(String name){
         return productMapper.deleteProduct(name);
+
+    }
+
+    @Override
+    public Product searchProduct(String name) {
+        return productMapper.searchProduct(name);
     }
 }

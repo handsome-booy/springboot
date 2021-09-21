@@ -49,4 +49,18 @@ public class ProductController {
         }
         return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "商品下架成功");
     }
+
+
+    /**
+     * 单个商品详情查询
+     */
+    @RequestMapping("/searchProduct")
+    public CommonServerResponse searchProduct(String name){
+
+        Product product = productService.searchProduct(name);
+        if(product == null){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "商品不存在");
+        }
+        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), product.toString());
+    }
 }

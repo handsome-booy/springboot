@@ -6,4 +6,6 @@ public interface ProductService {
     int addProduct(Product product);
 
     int deleteProduct(String name);
+
+    Product searchProduct(String name);
 }
