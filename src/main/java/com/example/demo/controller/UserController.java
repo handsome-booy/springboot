@@ -36,6 +36,22 @@ public class UserController {
         }
     }
 
+    @RequestMapping("manager/login")
+    @ResponseBody
+    public CommonServerResponse managerLogin(String username, String password, HttpSession session){
+        User user = userService.login(username, password);
+        if(user == null){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名或者密码错误");
+        }else{
+            if(user.getManager() == 1) {
+                session.setAttribute(Const.MANAGER,user);
+                return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "登录成功");
+            }else{
+                return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "不是管理员");
+            }
+
+        }
+    }
 
     @RequestMapping("/register")
     @ResponseBody
@@ -70,19 +86,35 @@ public class UserController {
 
     @RequestMapping("/detail")
     @ResponseBody
-    public CommonServerResponse detail(HttpSession session){
+    public CommonServerResponse<User> detail(HttpSession session){
         User user = (User)session.getAttribute(Const.USER);
         if(user == null){
-            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "没有登录");
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "没有登录",null);
         }
-        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), user.toString());
+        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "登录成功",user);
+    }
+    @RequestMapping("/manager/detail")
+    @ResponseBody
+    public CommonServerResponse<User> managerDetail(HttpSession session){
+        User user = (User)session.getAttribute(Const.MANAGER);
+        if(user == null){
+            return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "没有登录",null);
+        }
+        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "登录成功",user);
     }
 
     @RequestMapping("/logout")
     @ResponseBody
     public CommonServerResponse logout(HttpSession session){
         session.removeAttribute(Const.USER);
-        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "退出成功");
+        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "用户退出成功");
+    }
+
+    @RequestMapping("manager/logout")
+    @ResponseBody
+    public CommonServerResponse managerLogout(HttpSession session){
+        session.removeAttribute(Const.MANAGER);
+        return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "管理员退出成功");
     }
 
     @RequestMapping("/forget")
