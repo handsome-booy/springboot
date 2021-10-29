@@ -3,9 +3,11 @@ package com.example.demo.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 
-public class User {
+public class User implements Serializable {
     @JsonIgnore
     int id;
 
