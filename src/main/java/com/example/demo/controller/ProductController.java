@@ -22,13 +22,13 @@ public class ProductController {
      * 商品上架
      */
     @RequestMapping("/addProduct")
-    public CommonServerResponse addProduct(Product product, HttpSession session){
+    public CommonServerResponse addProduct(Product product, HttpSession session) {
         User user = (User) session.getAttribute(Const.MANAGER);
-        if(user == null){
+        if (user == null) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "管理员未登录");
         }
         int num = productService.addProduct(product);
-        if(num == 0){
+        if (num == 0) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "商品上架出错");
         }
         return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "商品上架成功");
@@ -38,13 +38,13 @@ public class ProductController {
      * 商品下架
      */
     @RequestMapping("/deleteProduct")
-    public CommonServerResponse deleteProduct(String name, HttpSession session){
+    public CommonServerResponse deleteProduct(String name, HttpSession session) {
         User user = (User) session.getAttribute(Const.MANAGER);
-        if(user == null){
+        if (user == null) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "管理员未登录");
         }
         int num = productService.deleteProduct(name);
-        if(num == 0){
+        if (num == 0) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "商品下架出错");
         }
         return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), "商品下架成功");
@@ -55,10 +55,10 @@ public class ProductController {
      * 单个商品详情查询
      */
     @RequestMapping("/searchProduct")
-    public CommonServerResponse searchProduct(String name){
+    public CommonServerResponse searchProduct(String name) {
 
         Product product = productService.searchProduct(name);
-        if(product == null){
+        if (product == null) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "商品不存在");
         }
         return CommonServerResponse.setResponse(CommonResponse.SUCCESS.getCode(), product.toString());

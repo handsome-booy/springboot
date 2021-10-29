@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-   @Autowired
+    @Autowired
     UserMapper userMapper;
 
     @Override
     public User login(String username, String password) {
-        String pass = MD5Util.inputPassToDBPass(password,"salt");
-        return userMapper.login(username,pass);
+        String pass = MD5Util.inputPassToDBPass(password, "salt");
+        return userMapper.login(username, pass);
     }
 
     @Override
     public int register(User user) {
-        String pass = MD5Util.inputPassToDBPass(user.getPassword(),"salt");
+        String pass = MD5Util.inputPassToDBPass(user.getPassword(), "salt");
         user.setPassword(pass);
         return userMapper.register(user);
     }
@@ -38,6 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updatePassword(String username, String newPassword) {
-        return userMapper.updatePassword(username,newPassword);
+        return userMapper.updatePassword(username, newPassword);
     }
 }

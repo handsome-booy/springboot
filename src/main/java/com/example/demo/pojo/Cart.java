@@ -22,4 +22,5 @@ public class Cart {
     BigDecimal product_price;
 
     boolean checked;
+
 }

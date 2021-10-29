@@ -11,8 +11,8 @@ public interface CartMapper {
     int addCart(Cart cart);
 
     @Select("SELECT * FROM CART WHERE product_name=#{product_name} and user_id = #{user_id}")
-    Cart searchCart(@Param("product_name") String product_name,@Param("user_id")int user_id);
+    Cart searchCart(@Param("product_name") String product_name, @Param("user_id") int user_id);
 
     @Delete("delete from cart WHERE product_name=#{product_name} and user_id = #{user_id}")
-    int delCart(@Param("product_name") String product_name,@Param("user_id")int user_id);
+    int delCart(@Param("product_name") String product_name, @Param("user_id") int user_id);
 }

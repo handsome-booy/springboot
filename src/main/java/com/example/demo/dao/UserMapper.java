@@ -19,5 +19,5 @@ public interface UserMapper {
     String forget(String username);
 
     @Update("update user set password = #{newPassword} where username = #{username}")
-    int updatePassword(@Param("username")String username,@Param("newPassword")String newPassword);
+    int updatePassword(@Param("username") String username, @Param("newPassword") String newPassword);
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/cart")
@@ -24,20 +26,21 @@ public class CartController {
     UserService userService;
 
     @RequestMapping("/addCart")
-    public CommonServerResponse addCart(String product_name, int product_number,HttpSession session){
+    public CommonServerResponse addCart(String product_name, int product_number, HttpSession session) {
         User user = (User) session.getAttribute(Const.USER);
-        if(user == null){
+        if (user == null) {
+
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名没有登录，无法添加购物车");
         }
-        return cartService.addCart(product_name,product_number,user.getId());
+        return cartService.addCart(product_name, product_number, user.getId());
     }
 
     @RequestMapping("/delCart")
-    public CommonServerResponse delCart(String product_name,HttpSession session){
+    public CommonServerResponse delCart(String product_name, HttpSession session) {
         User user = (User) session.getAttribute(Const.USER);
-        if(user == null){
+        if (user == null) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名没有登录，无法从购物车删除商品");
         }
-        return cartService.delCart(product_name,user.getId());
+        return cartService.delCart(product_name, user.getId());
     }
 }

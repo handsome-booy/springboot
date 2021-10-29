@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int deleteProduct(String name){
+    public int deleteProduct(String name) {
         return productMapper.deleteProduct(name);
 
     }
