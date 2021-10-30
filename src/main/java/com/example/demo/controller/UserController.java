@@ -31,8 +31,7 @@ public class UserController {
     @RequestMapping("/login")
     @ResponseBody
     public CommonServerResponse login(User u, HttpSession session, HttpServletResponse response) {
-        int i = 0;
-        int j = 2/i;
+
         User user = userService.login(u.getUsername(), u.getPassword());
         if (user == null) {
             return CommonServerResponse.setResponse(CommonResponse.FAIL.getCode(), "用户名或者密码错误");
